@@ -46,6 +46,16 @@ const dictionary = {
         image: "assets/buenasnochess.jpg",
         sign: "assets/buenasnoches.jpg",
       },
+      {
+        word: "¿Cómo te llamas?",
+        image: "assets/comotellamass.jpg",
+        sign: "assets/comotellamas.jpg",
+      },
+      {
+        word: "Mucho gusto",
+        image: "assets/muchogustoo.jpg",
+        sign: "assets/muchogusto.jpg",
+      },
     ],
   },
   cortesias: {
@@ -72,6 +82,33 @@ const dictionary = {
         image: "assets/losientoo.jpg",
         sign: "assets/perdon.jpg",
       },
+      { word: "Salud", image: "assets/saludd.jpg", sign: "assets/salud.jpg" },
+    ],
+  },
+  frases_utiles: {
+    title: "Frases Útiles",
+    icon: "bi-chat-left-dots-fill",
+    items: [
+      {
+        word: "¿Me ayudas?",
+        image: "assets/meayudasa.jpg",
+        sign: "assets/meayudas.jpg",
+      },
+      {
+        word: "¿Cuánto cuesta?",
+        image: "assets/cuantocuestaa.jpg",
+        sign: "assets/cuantocuesta.jpg",
+      },
+      {
+        word: "¿Dónde está el baño?",
+        image: "assets/dondeestaelbanoo.jpg",
+        sign: "assets/dondeestaelbano.jpg",
+      },
+      {
+        word: "No entiendo",
+        image: "assets/noentiendoo.jpg",
+        sign: "assets/noentiendo.jpg",
+      },
     ],
   },
   adjetivos: {
@@ -85,10 +122,32 @@ const dictionary = {
         image: "assets/bonitoo.jpg",
         sign: "assets/bonito.jpg",
       },
+      { word: "Feo", image: "assets/feo.jpg", sign: "assets/bonito.jpg" },
+      {
+        word: "Contento",
+        image: "assets/alegre.jpg",
+        sign: "assets/alegretriste.jpg",
+      },
       {
         word: "Triste",
         image: "assets/triste.jpg",
         sign: "assets/alegretriste.jpg",
+      },
+    ],
+  },
+  informacion_basica: {
+    title: "Info Básica",
+    icon: "bi-info-circle-fill",
+    items: [
+      { word: "Sí", image: "assets/sii.jpg", sign: "assets/sino.jpg" },
+      { word: "No", image: "assets/noo.jpg", sign: "assets/sino.jpg" },
+      { word: "¿Qué?", image: "assets/quee.jpg", sign: "assets/que.jpg" },
+      { word: "¿Quién?", image: "assets/quienn.jpg", sign: "assets/quien.jpg" },
+      { word: "¿Dónde?", image: "assets/dondee.jpg", sign: "assets/donde.jpg" },
+      {
+        word: "¿Por qué?",
+        image: "assets/porquee.jpg",
+        sign: "assets/porque.jpg",
       },
     ],
   },
