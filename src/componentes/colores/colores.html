@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Colores - Signealo</title>
+        <link rel="stylesheet" href="../../style.css" />
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+        />
+        <style>
+            body {
+                transition: background-color 0.5s;
+            }
+            .color-btn {
+                width: 80px;
+                height: 60px;
+                border: none;
+                border-radius: 15px;
+                color: white;
+                font-weight: bold;
+                text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+                cursor: pointer;
+                transition: transform 0.2s;
+                margin: 5px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            }
+            .color-btn:hover {
+                transform: scale(1.1);
+            }
+            .color-btn[data-light="true"] {
+                color: #333;
+                text-shadow: none;
+            }
+        </style>
+    </head>
+    <body>
+        <header class="page-header">
+            <a href="../../caracteristicas.html" class="back-btn"
+                ><i class="bi bi-arrow-left"></i
+            ></a>
+            <h1>Colores</h1>
+        </header>
+
+        <main class="container" style="margin-top: 20px">
+            <div
+                class="viewer-box"
+                id="viewer"
+                style="
+                    background: rgba(255, 255, 255, 0.8);
+                    backdrop-filter: blur(5px);
+                "
+            >
+                <p>Toca un color</p>
+            </div>
+
+            <div
+                style="display: flex; flex-wrap: wrap; justify-content: center"
+                id="palette"
+            ></div>
+        </main>
+
+        <script>
+            const colors = [
+                { name: "Rojo", hex: "#ef4444" },
+                { name: "Azul", hex: "#3b82f6" },
+                { name: "Verde", hex: "#22c55e" },
+                { name: "Amarillo", hex: "#eab308", light: true },
+                { name: "Naranja", hex: "#f97316" },
+                { name: "Morado", hex: "#a855f7" },
+                { name: "Blanco", hex: "#ffffff", light: true },
+                { name: "Negro", hex: "#1f2937" },
+            ];
+
+            const palette = document.getElementById("palette");
+            const viewer = document.getElementById("viewer");
+            const assetsPath = "../../assets/";
+
+            colors.forEach((c) => {
+                const btn = document.createElement("button");
+                btn.className = "color-btn";
+                btn.style.backgroundColor = c.hex;
+                btn.textContent = c.name;
+                if (c.light) btn.setAttribute("data-light", "true");
+
+                btn.onclick = () => {
+                    // Cambiar fondo suavemente
+                    document.body.style.backgroundColor = c.hex + "33"; // 33 es transparencia hex
+
+                    // Cargar imagen (normalizando nombre para evitar errores de mayúsculas/tildes)
+                    const safeName = c.name
+                        .toLowerCase()
+                        .normalize("NFD")
+                        .replace(/[\u0300-\u036f]/g, "");
+                    viewer.innerHTML = `<img src="${assetsPath}${safeName}.jpeg" onerror="this.src='${assetsPath}${safeName}.png';">`;
+                };
+                palette.appendChild(btn);
+            });
+        </script>
+    </body>
+</html>

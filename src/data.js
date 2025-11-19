@@ -1,4 +1,9 @@
-// Este archivo centraliza los datos del diccionario para que puedan ser usados en múltiples páginas.
+/**
+ * DATA.JS
+ * Base de datos centralizada para toda la aplicación.
+ * Contiene todas las palabras, rutas de imágenes y categorías.
+ */
+
 const dictionary = {
   pronombres: {
     title: "Pronombres",
@@ -21,8 +26,8 @@ const dictionary = {
     ],
   },
   saludos: {
-    title: "Saludos y Presentaciones",
-    icon: "bi-hand-thumbs-up-fill",
+    title: "Saludos",
+    icon: "bi-emoji-smile-fill",
     items: [
       { word: "Hola", image: "assets/HOLAA.jpg", sign: "assets/hola.jpg" },
       { word: "Adiós", image: "assets/adioss.jpg", sign: "assets/adios.png" },
@@ -41,20 +46,10 @@ const dictionary = {
         image: "assets/buenasnochess.jpg",
         sign: "assets/buenasnoches.jpg",
       },
-      {
-        word: "¿Cómo te llamas?",
-        image: "assets/comotellamass.jpg",
-        sign: "assets/comotellamas.jpg",
-      },
-      {
-        word: "Mucho gusto",
-        image: "assets/muchogustoo.jpg",
-        sign: "assets/muchogusto.jpg",
-      },
     ],
   },
   cortesias: {
-    title: "Cortesía y Educación",
+    title: "Cortesía",
     icon: "bi-heart-fill",
     items: [
       {
@@ -73,42 +68,15 @@ const dictionary = {
         sign: "assets/denada.jpg",
       },
       {
-        word: "Lo siento",
+        word: "Perdón",
         image: "assets/losientoo.jpg",
         sign: "assets/perdon.jpg",
-      },
-      { word: "Salud", image: "assets/saludd.jpg", sign: "assets/salud.jpg" },
-    ],
-  },
-  frases_utiles: {
-    title: "Frases Útiles",
-    icon: "bi-chat-left-dots-fill",
-    items: [
-      {
-        word: "¿Me ayudas?",
-        image: "assets/meayudasa.jpg",
-        sign: "assets/meayudas.jpg",
-      },
-      {
-        word: "¿Cuánto cuesta?",
-        image: "assets/cuantocuestaa.jpg",
-        sign: "assets/cuantocuesta.jpg",
-      },
-      {
-        word: "¿Dónde está el baño?",
-        image: "assets/dondeestaelbañoo.jpg",
-        sign: "assets/dondeestaelbaño.jpg",
-      },
-      {
-        word: "No entiendo",
-        image: "assets/noentiendoo.jpg",
-        sign: "assets/noentiendo.jpg",
       },
     ],
   },
   adjetivos: {
     title: "Adjetivos",
-    icon: "bi-palette-fill",
+    icon: "bi-star-fill",
     items: [
       { word: "Bien", image: "assets/bien.jpg", sign: "assets/bienmal.jpg" },
       { word: "Mal", image: "assets/mal.jpg", sign: "assets/bienmal.jpg" },
@@ -117,32 +85,10 @@ const dictionary = {
         image: "assets/bonitoo.jpg",
         sign: "assets/bonito.jpg",
       },
-      { word: "Feo", image: "assets/feo.jpg", sign: "assets/bonito.jpg" },
-      {
-        word: "Contento",
-        image: "assets/alegre.jpg",
-        sign: "assets/alegretriste.jpg",
-      },
       {
         word: "Triste",
         image: "assets/triste.jpg",
         sign: "assets/alegretriste.jpg",
-      },
-    ],
-  },
-  informacion_basica: {
-    title: "Preguntas e Info Básica",
-    icon: "bi-info-circle-fill",
-    items: [
-      { word: "Sí", image: "assets/sii.jpg", sign: "assets/sino.jpg" },
-      { word: "No", image: "assets/noo.jpg", sign: "assets/sino.jpg" },
-      { word: "¿Qué?", image: "assets/quee.jpg", sign: "assets/que.jpg" },
-      { word: "¿Quién?", image: "assets/quienn.jpg", sign: "assets/quien.jpg" },
-      { word: "¿Dónde?", image: "assets/dondee.jpg", sign: "assets/donde.jpg" },
-      {
-        word: "¿Por qué?",
-        image: "assets/porquee.jpg",
-        sign: "assets/porque.jpg",
       },
     ],
   },

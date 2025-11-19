@@ -1,105 +1,106 @@
-document.addEventListener("DOMContentLoaded", function () {
-  // --- 0. LÓGICA DEL SPLASH SCREEN ---
-  const splashScreen = document.getElementById("splash-screen");
-  if (splashScreen) {
+/**
+ * SCRIPT.JS
+ * Lógica principal de la aplicación Signealo.
+ */
+
+document.addEventListener("DOMContentLoaded", () => {
+  // 1. MANEJO DE PANTALLA DE CARGA (SPLASH SCREEN)
+  const splash = document.getElementById("splash-screen");
+  if (splash) {
     setTimeout(() => {
-      splashScreen.classList.add("hidden");
-    }, 2800);
+      splash.classList.add("hidden");
+    }, 2000); // 2 segundos de espera
   }
 
-  // --- LÓGICA DE LA PÁGINA DE INICIO ---
-  const searchInput = document.getElementById("search-input");
-  const searchResultsContainer = document.getElementById("search-results");
-  const popularCategoriesContainer =
-    document.getElementById("popular-categories");
-  const wordOfTheDayContainer = document.querySelector(".word-of-the-day");
+  // 2. DETERMINAR RUTA RELATIVA (CRÍTICO)
+  // Si estamos en /componentes/x/, necesitamos subir dos niveles (../../)
+  // Si estamos en la raíz, no necesitamos prefijo.
+  const isComponent = window.location.pathname.includes("/componentes/");
+  const pathPrefix = isComponent ? "../../" : "";
 
-  // Solo ejecutar la lógica de la página de inicio si estamos en ella
-  if (searchInput && popularCategoriesContainer && wordOfTheDayContainer) {
-    // 1. Lógica del Buscador
-    searchInput.addEventListener("input", function (e) {
+  // 3. LÓGICA DEL BUSCADOR (Solo si existe el input)
+  const searchInput = document.getElementById("search-input");
+  const resultsBox = document.getElementById("search-results");
+
+  if (searchInput && resultsBox) {
+    searchInput.addEventListener("input", (e) => {
       const query = e.target.value.toLowerCase().trim();
-      searchResultsContainer.innerHTML = "";
+      resultsBox.innerHTML = "";
 
       if (query.length < 2) {
-        searchResultsContainer.classList.add("hidden");
+        resultsBox.classList.remove("active");
         return;
       }
 
-      const results = [];
-      for (const categoryKey in dictionary) {
-        dictionary[categoryKey].items.forEach((item) => {
+      let matches = [];
+      // Buscar en todas las categorías del data.js
+      for (const catKey in dictionary) {
+        dictionary[catKey].items.forEach((item) => {
           if (item.word.toLowerCase().includes(query)) {
-            results.push({ ...item, categoryKey: categoryKey });
+            matches.push({ ...item, catKey: catKey });
           }
         });
       }
 
-      if (results.length > 0) {
-        searchResultsContainer.classList.remove("hidden");
-        results.forEach((item) => {
-          const resultItem = document.createElement("a");
-          resultItem.href = `diccionario.html?categoria=${item.categoryKey}`;
-          resultItem.className = "search-result-item";
-          resultItem.innerHTML = `
-                        <div class="result-text">
-                            <strong>${item.word}</strong>
-                            <span>${dictionary[item.categoryKey].title}</span>
+      if (matches.length > 0) {
+        resultsBox.classList.add("active");
+        matches.slice(0, 5).forEach((match) => {
+          // Crear enlace al diccionario con parámetro
+          const link = document.createElement("a");
+          link.className = "search-item";
+          link.href = `${pathPrefix}componentes/diccionario/diccionario.html?categoria=${match.catKey}`;
+          link.innerHTML = `
+                        <div>
+                            <strong>${match.word}</strong>
+                            <br><small style="color:var(--primary-color)">${dictionary[match.catKey].title}</small>
                         </div>
-                        <svg viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
+                        <i class="bi bi-chevron-right"></i>
                     `;
-          searchResultsContainer.appendChild(resultItem);
+          resultsBox.appendChild(link);
         });
       } else {
-        searchResultsContainer.classList.add("hidden");
+        resultsBox.classList.remove("active");
       }
     });
+  }
 
-    // 2. Palabra del Día Dinámica
-    function updateWordOfTheDay() {
-      const allWords = [];
-      let wordToCategoryMap = new Map();
+  // 4. PALABRA DEL DÍA (Solo en Index)
+  const wordDayContainer = document.querySelector(".word-of-the-day");
+  if (wordDayContainer) {
+    const allItems = [];
+    for (const k in dictionary) {
+      dictionary[k].items.forEach((item) => allItems.push(item));
+    }
 
-      for (const key in dictionary) {
-        dictionary[key].items.forEach((item) => {
-          allWords.push(item);
-          wordToCategoryMap.set(item.word, dictionary[key].title);
-        });
+    if (allItems.length > 0) {
+      // Elegir aleatorio
+      const randomItem = allItems[Math.floor(Math.random() * allItems.length)];
+
+      // Insertar datos
+      document.getElementById("wotd-title").textContent = randomItem.word;
+
+      // Imagen con ruta corregida
+      const imgContainer = document.getElementById("wotd-image");
+      const finalSrc = pathPrefix + randomItem.sign;
+
+      imgContainer.innerHTML = `<img src="${finalSrc}" style="width:100%; height:100%; object-fit:cover; border-radius:15px;" onerror="this.style.display='none'">`;
+    }
+  }
+
+  // 5. GENERAR CATEGORÍAS POPULARES (Solo en Index)
+  const popContainer = document.getElementById("popular-categories");
+  if (popContainer) {
+    const keys = ["saludos", "cortesias"];
+    keys.forEach((key) => {
+      const cat = dictionary[key];
+      if (cat) {
+        popContainer.innerHTML += `
+                    <a href="componentes/diccionario/diccionario.html?categoria=${key}" class="card">
+                        <div class="card-icon"><i class="bi ${cat.icon}"></i></div>
+                        <h3>${cat.title}</h3>
+                    </a>
+                `;
       }
-
-      if (allWords.length === 0) return;
-
-      const randomWord = allWords[Math.floor(Math.random() * allWords.length)];
-      const categoryTitle = wordToCategoryMap.get(randomWord.word);
-
-      wordOfTheDayContainer.querySelector("h3").textContent = randomWord.word;
-      wordOfTheDayContainer.querySelector("p").textContent =
-        `Una seña útil de la categoría de ${categoryTitle}.`;
-      wordOfTheDayContainer.querySelector(".word-of-the-day-image").innerHTML =
-        `<img src="${randomWord.sign}" alt="Seña de ${randomWord.word}">`;
-    }
-
-    // 3. Cargar Categorías Populares
-    function loadPopularCategories() {
-      const popularKeys = ["saludos", "cortesias", "pronombres", "adjetivos"];
-      popularCategoriesContainer.innerHTML = "";
-      popularKeys.forEach((key) => {
-        const category = dictionary[key];
-        if (category) {
-          const card = document.createElement("a");
-          card.className = "card";
-          card.href = `diccionario.html?categoria=${key}`;
-          card.innerHTML = `
-                        <div class="card-icon"><i class="bi ${category.icon}"></i></div>
-                        <h3>${category.title}</h3>
-                    `;
-          popularCategoriesContainer.appendChild(card);
-        }
-      });
-    }
-
-    // Ejecutar las funciones
-    updateWordOfTheDay();
-    loadPopularCategories();
+    });
   }
 });

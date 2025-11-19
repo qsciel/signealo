@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Examen - Signealo</title>
+        <link rel="stylesheet" href="../../style.css" />
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+        />
+        <style>
+            .quiz-header {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 15px;
+                padding: 0 5px;
+                font-weight: bold;
+                color: var(--text-light);
+            }
+            .score-highlight {
+                color: var(--primary-color);
+            }
+
+            /* Usamos un grid de botones */
+            .options-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+                margin-top: 20px;
+            }
+
+            .option-btn {
+                background: white;
+                border: none;
+                border-radius: 15px;
+                padding: 15px;
+                font-size: 1rem;
+                font-weight: bold;
+                color: var(--text-color);
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+                cursor: pointer;
+                transition: background 0.2s;
+            }
+            .option-btn:active {
+                transform: scale(0.98);
+            }
+            .option-btn.correct {
+                background: #10b981;
+                color: white;
+            }
+            .option-btn.incorrect {
+                background: #ef4444;
+                color: white;
+            }
+
+            /* Pantalla de Resultados */
+            #results-screen {
+                display: none;
+                text-align: center;
+                background: white;
+                padding: 30px 20px;
+                border-radius: 20px;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            }
+            .big-score {
+                font-size: 3rem;
+                font-weight: 800;
+                color: var(--primary-color);
+                margin: 10px 0;
+            }
+            .btn-exit {
+                display: inline-block;
+                margin-top: 20px;
+                padding: 12px 30px;
+                background: var(--text-color);
+                color: white;
+                border-radius: 25px;
+                text-decoration: none;
+                font-weight: bold;
+            }
+        </style>
+    </head>
+    <body>
+        <header class="page-header">
+            <a href="../../caracteristicas.html" class="back-btn">
+                <i class="bi bi-arrow-left"></i>
+            </a>
+            <h1>Examen General</h1>
+        </header>
+
+        <main class="container" style="margin-top: 20px">
+            <!-- JUEGO ACTIVO -->
+            <div id="quiz-screen">
+                <div class="quiz-header">
+                    <span>Pregunta <span id="q-current">1</span>/10</span>
+                    <span class="score-highlight" id="score">0 pts</span>
+                </div>
+
+                <!-- Reutilizamos la clase viewer-box para consistencia con Alfabeto -->
+                <div
+                    class="viewer-box"
+                    id="question-image"
+                    style="height: 220px"
+                >
+                    <!-- La imagen se carga aquí -->
+                </div>
+
+                <h3
+                    style="
+                        text-align: center;
+                        margin: 10px 0;
+                        font-size: 1.1rem;
+                    "
+                >
+                    ¿Qué significa?
+                </h3>
+
+                <div class="options-grid" id="options-container"></div>
+                <p
+                    id="feedback"
+                    style="
+                        text-align: center;
+                        min-height: 20px;
+                        color: gray;
+                        font-size: 0.9rem;
+                        margin-top: 10px;
+                    "
+                ></p>
+            </div>
+
+            <!-- PANTALLA FINAL -->
+            <div id="results-screen">
+                <h2>¡Terminado!</h2>
+                <p>Tu puntuación final:</p>
+                <div class="big-score" id="final-score-display">0</div>
+                <p id="final-message">¡Sigue así!</p>
+
+                <a href="../../caracteristicas.html" class="btn-exit">Salir</a>
+                <br /><br />
+                <button
+                    onclick="location.reload()"
+                    style="
+                        background: none;
+                        border: none;
+                        color: gray;
+                        text-decoration: underline;
+                    "
+                >
+                    Repetir
+                </button>
+            </div>
+        </main>
+
+        <!-- BARRA DE NAVEGACIÓN -->
+        <nav class="bottom-nav">
+            <a href="../../index.html" class="nav-link">
+                <svg
+                    viewBox="0 0 24 24"
+                    style="width: 24px; height: 24px; fill: currentColor"
+                >
+                    <path d="M10,20V14H14V20H19V12H22L12,3L2,12H5V20H10Z" />
+                </svg>
+                <span>Inicio</span>
+            </a>
+            <a href="../../caracteristicas.html" class="nav-link active">
+                <svg
+                    viewBox="0 0 24 24"
+                    style="width: 24px; height: 24px; fill: currentColor"
+                >
+                    <path
+                        d="M12,15.5A3.5,3.5 0 0,1 8.5,12A3.5,3.5 0 0,1 12,8.5A3.5,3.5 0 0,1 15.5,12A3.5,3.5 0 0,1 12,15.5M19.43,12.97C19.47,12.65 19.5,12.33 19.5,12C19.5,11.67 19.47,11.34 19.43,11L21.54,9.37C21.73,9.22 21.78,8.95 21.66,8.73L19.66,5.27C19.54,5.05 19.27,4.96 19.05,5.05L16.56,6.05C16.04,5.66 15.5,5.32 14.87,5.07L14.5,2.42C14.46,2.18 14.25,2 14,2H10C9.75,2 9.54,2.18 9.5,2.42L9.13,5.07C8.5,5.32 7.96,5.66 7.44,6.05L4.95,5.05C4.73,4.96 4.46,5.05 4.34,5.27L2.34,8.73C2.21,8.95 2.27,9.22 2.46,9.37L4.57,11C4.53,11.34 4.5,11.67 4.5,12C4.5,12.33 4.53,12.65 4.57,12.97L2.46,14.63C2.27,14.78 2.21,15.05 2.34,15.27L4.34,18.73C4.46,18.95 4.73,19.03 4.95,18.95L7.44,17.94C7.96,18.34 8.5,18.68 9.13,18.93L9.5,21.58C9.54,21.82 9.75,22 10,22H14C14.25,22 14.46,21.82 14.5,21.58L14.87,18.93C15.5,18.68 16.04,18.34 16.56,17.94L19.05,18.95C19.27,19.03 19.54,18.95 19.66,18.73L21.66,15.27C21.78,15.05 21.73,14.78 21.54,14.63L19.43,12.97Z"
+                    />
+                </svg>
+                <span>Aprender</span>
+            </a>
+        </nav>
+
+        <script src="../../data.js"></script>
+        <script>
+            let score = 0;
+            let questionIndex = 0;
+            const totalQuestions = 10;
+            let currentCorrectAnswer = null;
+            let isAnswering = false;
+
+            let allQuestions = [];
+            for (let cat in dictionary)
+                allQuestions.push(...dictionary[cat].items);
+
+            function loadQuestion() {
+                if (questionIndex >= totalQuestions) {
+                    showResults();
+                    return;
+                }
+
+                isAnswering = false;
+                document.getElementById("q-current").textContent =
+                    questionIndex + 1;
+                document.getElementById("feedback").textContent = "";
+                const container = document.getElementById("options-container");
+                container.innerHTML = "";
+
+                // Seleccionar pregunta
+                const target =
+                    allQuestions[
+                        Math.floor(Math.random() * allQuestions.length)
+                    ];
+                currentCorrectAnswer = target;
+
+                // Cargar imagen en viewer-box
+                const imgBox = document.getElementById("question-image");
+                imgBox.innerHTML = `<img src="../../${target.sign}" style="max-height:100%; max-width:100%; object-fit:contain;" onerror="this.parentElement.innerHTML='<p>Error de imagen</p>'">`;
+
+                // Generar opciones
+                let options = [target];
+                let safety = 0;
+                while (options.length < 4 && safety < 50) {
+                    let r =
+                        allQuestions[
+                            Math.floor(Math.random() * allQuestions.length)
+                        ];
+                    if (!options.find((o) => o.word === r.word))
+                        options.push(r);
+                    safety++;
+                }
+                while (options.length < 4) options.push(target); // Fallback
+                options.sort(() => 0.5 - Math.random());
+
+                options.forEach((opt) => {
+                    const btn = document.createElement("button");
+                    btn.className = "option-btn";
+                    btn.textContent = opt.word;
+                    btn.onclick = () => checkAnswer(opt, btn);
+                    container.appendChild(btn);
+                });
+            }
+
+            function checkAnswer(selected, btnElement) {
+                if (isAnswering) return;
+                isAnswering = true;
+                const buttons = document.querySelectorAll(".option-btn");
+
+                if (selected.word === currentCorrectAnswer.word) {
+                    btnElement.classList.add("correct");
+                    score += 10;
+                    document.getElementById("feedback").textContent =
+                        "¡Correcto!";
+                } else {
+                    btnElement.classList.add("incorrect");
+                    buttons.forEach((b) => {
+                        if (b.textContent === currentCorrectAnswer.word)
+                            b.classList.add("correct");
+                    });
+                    document.getElementById("feedback").textContent =
+                        "La respuesta era: " + currentCorrectAnswer.word;
+                }
+
+                document.getElementById("score").textContent = score + " pts";
+                questionIndex++;
+                setTimeout(loadQuestion, 1500);
+            }
+
+            function showResults() {
+                document.getElementById("quiz-screen").style.display = "none";
+                document.getElementById("results-screen").style.display =
+                    "block";
+                document.getElementById("final-score-display").textContent =
+                    score;
+
+                const msg = document.getElementById("final-message");
+                if (score === totalQuestions * 10)
+                    msg.textContent = "¡Perfecto!";
+                else if (score >= 50) msg.textContent = "¡Buen trabajo!";
+                else msg.textContent = "Sigue practicando";
+            }
+
+            loadQuestion();
+        </script>
+    </body>
+</html>

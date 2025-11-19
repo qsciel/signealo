@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Intérprete - Signealo</title>
+        <link rel="stylesheet" href="../../style.css" />
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+        />
+    </head>
+    <body>
+        <header class="page-header">
+            <a href="../../caracteristicas.html" class="back-btn"
+                ><i class="bi bi-arrow-left"></i
+            ></a>
+            <h1>Intérprete IA</h1>
+        </header>
+
+        <main class="container" style="text-align: center; margin-top: 40px">
+            <div
+                style="
+                    background: white;
+                    padding: 30px;
+                    border-radius: 25px;
+                    box-shadow: var(--shadow-lg);
+                "
+            >
+                <span
+                    style="
+                        background: #dbeafe;
+                        color: #1e40af;
+                        padding: 5px 10px;
+                        border-radius: 20px;
+                        font-size: 0.8rem;
+                        font-weight: bold;
+                    "
+                    >BETA</span
+                >
+                <h2 style="margin-top: 15px">Escanea para Traducir</h2>
+                <p style="color: #6b7280">
+                    Usa tu cámara para interpretar señas en tiempo real.
+                </p>
+
+                <!-- Placeholder del QR o Cámara -->
+                <div
+                    style="
+                        width: 200px;
+                        height: 200px;
+                        background: #f3f4f6;
+                        margin: 20px auto;
+                        border-radius: 20px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        border: 2px dashed #ccc;
+                    "
+                >
+                    <i
+                        class="bi bi-qr-code-scan"
+                        style="font-size: 3rem; color: #9ca3af"
+                    ></i>
+                </div>
+
+                <button
+                    style="
+                        background: var(--primary-color);
+                        color: white;
+                        border: none;
+                        padding: 15px 30px;
+                        border-radius: 50px;
+                        font-size: 1rem;
+                        cursor: pointer;
+                        width: 100%;
+                        box-shadow: 0 4px 10px rgba(106, 17, 203, 0.3);
+                    "
+                >
+                    <i class="bi bi-camera-fill"></i> Activar Cámara
+                </button>
+            </div>
+        </main>
+    </body>
+</html>
