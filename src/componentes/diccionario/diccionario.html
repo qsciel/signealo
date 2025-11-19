@@ -16,7 +16,7 @@
             href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
         />
         <style>
-            /* Ajustes para que Bootstrap no rompa el diseño global */
+            /* Ajustes globales */
             body {
                 background-color: var(--background-color);
                 font-family: inherit;
@@ -24,6 +24,8 @@
             a {
                 text-decoration: none;
             }
+
+            /* Tarjetas de Categoría */
             .cat-card {
                 cursor: pointer;
                 transition: transform 0.2s;
@@ -33,67 +35,165 @@
             }
             .cat-card:hover {
                 transform: translateY(-5px);
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05) !important;
             }
+
+            /* Tarjetas de Palabras */
             .word-card {
                 cursor: pointer;
                 border: none;
                 border-radius: 15px;
                 overflow: hidden;
                 box-shadow: var(--shadow-sm);
+                transition: transform 0.2s;
+            }
+            .word-card:active {
+                transform: scale(0.98);
             }
             .word-thumb {
-                height: 150px;
+                height: 140px;
                 width: 100%;
                 object-fit: cover;
+                background: #f8f9fa;
             }
+
+            /* Modal mejorado */
             .modal-content {
                 border-radius: 25px;
+                border: none;
+            }
+            .instruction-text {
+                font-size: 1.1rem;
+                color: var(--text-color);
+                margin-bottom: 15px;
+            }
+            .highlight-word {
+                color: var(--primary-color);
+                font-weight: 800;
+            }
+            .tip-box {
+                background-color: #e0f2fe; /* Azul muy claro */
+                color: #0369a1;
+                padding: 10px;
+                border-radius: 12px;
+                font-size: 0.9rem;
+                margin-top: 15px;
+                display: inline-block;
             }
         </style>
     </head>
     <body>
         <header class="page-header">
-            <a href="../../caracteristicas.html" class="back-btn"
-                ><i class="bi bi-arrow-left"></i
-            ></a>
+            <a href="../../caracteristicas.html" class="back-btn">
+                <i class="bi bi-arrow-left"></i>
+            </a>
             <h1>Diccionario</h1>
         </header>
 
         <div class="container py-4">
             <!-- 1. Vista Categorías -->
-            <div id="view-categories" class="row g-3">
-                <!-- Se llena con JS -->
+            <div id="view-categories">
+                <!-- Mensaje de bienvenida amigable -->
+                <div class="text-center mb-4">
+                    <h4 class="fw-bold text-secondary">
+                        ¿Qué quieres aprender hoy?
+                    </h4>
+                    <p class="text-muted small">
+                        Selecciona un tema para ver las palabras disponibles.
+                    </p>
+                </div>
+
+                <div id="categories-container" class="row g-3">
+                    <!-- Se llena con JS -->
+                </div>
             </div>
 
             <!-- 2. Vista Palabras -->
             <div id="view-words" class="d-none">
-                <button class="btn btn-light mb-3" onclick="showCategories()">
-                    <i class="bi bi-arrow-left"></i> Volver
-                </button>
-                <h2 id="cat-title" class="text-primary mb-4"></h2>
+                <div class="d-flex align-items-center mb-3">
+                    <button
+                        class="btn btn-light rounded-circle me-3 shadow-sm"
+                        style="width: 40px; height: 40px"
+                        onclick="showCategories()"
+                    >
+                        <i class="bi bi-arrow-left"></i>
+                    </button>
+                    <div>
+                        <h2
+                            id="cat-title"
+                            class="text-primary fw-bold m-0"
+                            style="font-size: 1.5rem"
+                        ></h2>
+                        <small class="text-muted"
+                            >Toca una imagen para ver la seña</small
+                        >
+                    </div>
+                </div>
+
                 <div id="words-grid" class="row g-3"></div>
             </div>
         </div>
 
-        <!-- Modal Bootstrap -->
+        <!-- Modal Educativo -->
         <div class="modal fade" id="signModal" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header border-0">
-                        <h5 class="modal-title fw-bold" id="modalTitle">...</h5>
+                <div class="modal-content p-3">
+                    <div class="modal-header border-0 pb-0">
+                        <h5 class="modal-title fw-bold text-secondary">
+                            Aprendiendo LSM
+                        </h5>
                         <button
                             type="button"
                             class="btn-close"
                             data-bs-dismiss="modal"
                         ></button>
                     </div>
-                    <div class="modal-body text-center p-0 pb-4">
-                        <img
-                            src=""
-                            id="modalImg"
-                            class="img-fluid"
-                            style="max-height: 400px"
-                        />
+
+                    <div class="modal-body text-center">
+                        <!-- Mensaje instruccional dinámico -->
+                        <p class="instruction-text">
+                            ¿Cómo se dice
+                            <span id="modalWordName" class="highlight-word"
+                                >...</span
+                            >?
+                        </p>
+                        <p class="text-muted small mb-3">
+                            Observa la imagen y replica el movimiento:
+                        </p>
+
+                        <!-- Imagen de la seña -->
+                        <div
+                            style="
+                                border: 2px dashed #e5e7eb;
+                                border-radius: 15px;
+                                padding: 5px;
+                                display: inline-block;
+                            "
+                        >
+                            <img
+                                src=""
+                                id="modalImg"
+                                class="img-fluid rounded"
+                                style="max-height: 350px"
+                            />
+                        </div>
+
+                        <!-- Tip visual -->
+                        <div class="tip-box">
+                            <i class="bi bi-lightbulb-fill me-1"></i>
+                            <strong>Tip:</strong> Intenta hacerlo frente a un
+                            espejo.
+                        </div>
+                    </div>
+
+                    <div class="modal-footer border-0 justify-content-center">
+                        <button
+                            type="button"
+                            class="btn btn-primary rounded-pill px-4"
+                            data-bs-dismiss="modal"
+                        >
+                            ¡Entendido!
+                        </button>
                     </div>
                 </div>
             </div>
@@ -103,8 +203,11 @@
         <script src="../../data.js"></script>
         <script>
             const viewCats = document.getElementById("view-categories");
+            const catsContainer = document.getElementById(
+                "categories-container",
+            );
             const viewWords = document.getElementById("view-words");
-            const assetsPath = "../../"; // Para subir al root desde aquí
+            const assetsPath = "../../";
 
             // Cargar Categorías
             for (const key in dictionary) {
@@ -114,11 +217,11 @@
                 col.innerHTML = `
                 <div class="card cat-card h-100 p-3 text-center shadow-sm" onclick="loadCategory('${key}')">
                     <div class="fs-1 text-primary mb-2"><i class="bi ${cat.icon}"></i></div>
-                    <h5 class="fw-bold m-0">${cat.title}</h5>
-                    <small class="text-muted">${cat.items.length} señas</small>
+                    <h5 class="fw-bold m-0" style="font-size: 1rem;">${cat.title}</h5>
+                    <small class="text-muted" style="font-size: 0.8rem;">${cat.items.length} palabras</small>
                 </div>
             `;
-                viewCats.appendChild(col);
+                catsContainer.appendChild(col);
             }
 
             function loadCategory(key) {
@@ -129,13 +232,20 @@
 
                 cat.items.forEach((item) => {
                     const col = document.createElement("div");
-                    col.className = "col-6 col-md-3";
+                    col.className = "col-6 col-md-4 col-lg-3";
                     const imgSrc = assetsPath + item.image;
+
+                    // Aquí usamos item.word e item.sign para el modal
                     col.innerHTML = `
                     <div class="card word-card h-100" onclick="openModal('${item.word}', '${assetsPath + item.sign}')">
-                        <img src="${imgSrc}" class="word-thumb" onerror="this.src='https://placehold.co/200?text=Sin+Imagen'">
+                        <div style="position: relative;">
+                            <img src="${imgSrc}" class="word-thumb" onerror="this.src='https://placehold.co/200?text=Sin+Imagen'">
+                            <div style="position: absolute; bottom: 5px; right: 5px; background: rgba(255,255,255,0.8); border-radius: 50%; padding: 5px;">
+                                <i class="bi bi-eye-fill text-primary"></i>
+                            </div>
+                        </div>
                         <div class="card-body p-2 text-center">
-                            <strong class="small">${item.word}</strong>
+                            <strong class="small text-dark">${item.word}</strong>
                         </div>
                     </div>
                 `;
@@ -144,6 +254,7 @@
 
                 viewCats.classList.add("d-none");
                 viewWords.classList.remove("d-none");
+                window.scrollTo(0, 0);
             }
 
             function showCategories() {
@@ -152,8 +263,12 @@
             }
 
             function openModal(word, src) {
-                document.getElementById("modalTitle").innerText = word;
+                // Actualizamos los textos para que sean conversacionales
+                document.getElementById("modalWordName").innerText =
+                    `"${word}"`;
                 document.getElementById("modalImg").src = src;
+
+                // Mostrar el modal
                 new bootstrap.Modal(
                     document.getElementById("signModal"),
                 ).show();
