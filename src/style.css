@@ -1,0 +1,560 @@
+:root {
+    --primary-color: #6a11cb;
+    --secondary-color: #2575fc;
+    --background-color: #f0f2f5;
+    --surface-color: #ffffff;
+    --text-color: #212121;
+    --light-text-color: #616161;
+    --accent-color: #ff4081;
+    --border-radius: 16px;
+}
+
+body {
+    user-select: none;
+    margin: 0;
+    padding-bottom: 60px; /* Space for bottom nav */
+    font-family:
+        -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
+        sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    overflow-x: hidden;
+}
+
+/* --- Splash Screen --- */
+#splash-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        45deg,
+        var(--primary-color),
+        var(--secondary-color)
+    );
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    transition:
+        opacity 0.5s ease-out,
+        visibility 0.5s ease-out;
+}
+#splash-screen.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+#splash-logo {
+    animation: pulse-logo 2.5s ease-in-out forwards;
+}
+@keyframes pulse-logo {
+    0% {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+}
+
+/* --- Main App Layout --- */
+main {
+    padding: 0;
+}
+.content-section {
+    padding: 0 24px 24px 24px;
+}
+
+/* --- Home Page: Hero Header --- */
+.hero-header {
+    background: linear-gradient(
+        45deg,
+        var(--primary-color),
+        var(--secondary-color)
+    );
+    color: white;
+    padding: 48px 24px;
+    border-bottom-left-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
+    text-align: center;
+    margin-bottom: 24px;
+}
+.hero-header h1 {
+    margin: 0;
+    font-size: 2.2rem;
+    font-weight: 800;
+}
+.hero-header p {
+    margin: 8px 0 0;
+    font-size: 1rem;
+    opacity: 0.9;
+}
+
+/* --- Shared: Page Header --- */
+.page-header {
+    text-align: center;
+    padding: 24px;
+    border-bottom: 1px solid #e0e0e0;
+}
+.page-header h1 {
+    margin: 0;
+}
+.page-header p {
+    margin: 4px 0 0;
+    color: var(--light-text-color);
+}
+
+/* --- Home Page: Search Bar --- */
+.search-bar {
+    display: flex;
+    align-items: center;
+    background-color: var(--surface-color);
+    border-radius: var(--border-radius);
+    padding: 8px 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+.search-bar svg {
+    width: 20px;
+    height: 20px;
+    fill: var(--light-text-color);
+    margin-right: 12px;
+}
+.search-bar input {
+    border: none;
+    outline: none;
+    width: 100%;
+    font-size: 1rem;
+    background: transparent;
+}
+
+/* --- Home Page: Cards --- */
+h2 {
+    font-size: 1.5rem;
+    margin-bottom: 16px;
+}
+.card-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+.card {
+    background: var(--surface-color);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    color: var(--text-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition:
+        transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+        box-shadow 0.2s;
+}
+.card:active {
+    transform: scale(0.96);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+.card h3 {
+    margin: 12px 0 4px;
+    font-size: 1rem;
+}
+.card p {
+    margin: 0;
+    font-size: 0.8rem;
+    color: var(--light-text-color);
+}
+.card-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(37, 117, 252, 0.1);
+}
+.card-icon svg {
+    width: 24px;
+    height: 24px;
+    fill: var(--secondary-color);
+}
+.alphabet-icon {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--secondary-color);
+}
+
+/* --- Home Page: Word of the Day --- */
+.word-of-the-day {
+    display: flex;
+    align-items: center;
+    background: var(--surface-color);
+    border-radius: var(--border-radius);
+    padding: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+.word-of-the-day-image {
+    width: 60px;
+    height: 60px;
+    flex-shrink: 0;
+    margin-right: 16px;
+    background-color: rgba(106, 17, 203, 0.1);
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.word-of-the-day-image svg {
+    width: 32px;
+    height: 32px;
+    fill: var(--primary-color);
+}
+.word-of-the-day-content h4 {
+    margin: 0;
+    font-size: 0.8rem;
+    color: var(--primary-color);
+    font-weight: 600;
+    text-transform: uppercase;
+}
+.word-of-the-day-content h3 {
+    margin: 4px 0;
+}
+.word-of-the-day-content p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--light-text-color);
+}
+
+/* --- Voice to Text UI (No longer used, but kept for reference) --- */
+#voice-to-text-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    height: calc(100vh - 200px);
+    text-align: center;
+}
+#mic-button {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: linear-gradient(
+        45deg,
+        var(--primary-color),
+        var(--secondary-color)
+    );
+    border: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow:
+        0 10px 20px rgba(0, 0, 0, 0.19),
+        0 6px 6px rgba(0, 0, 0, 0.23);
+    transition: transform 0.2s;
+}
+#mic-button.recording {
+    animation: pulse-mic 1.5s infinite;
+}
+#mic-button svg {
+    width: 40px;
+    height: 40px;
+    fill: var(--surface-color);
+}
+@keyframes pulse-mic {
+    0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(37, 117, 252, 0.7);
+    }
+    70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 20px rgba(37, 117, 252, 0);
+    }
+    100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(37, 117, 252, 0);
+    }
+}
+#text-output {
+    margin-top: 40px;
+    width: 100%;
+    max-width: 500px;
+    min-height: 100px;
+    background: var(--surface-color);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow:
+        0 1px 3px rgba(0, 0, 0, 0.12),
+        0 1px 2px rgba(0, 0, 0, 0.24);
+    font-size: 18px;
+    color: var(--light-text-color);
+    line-height: 1.5;
+}
+#status {
+    margin-top: 20px;
+    color: var(--light-text-color);
+    font-style: italic;
+}
+
+/* --- Bottom Navigation --- */
+nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: var(--surface-color);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    z-index: 500;
+}
+nav a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: var(--light-text-color);
+    padding: 10px;
+    transition: color 0.3s;
+}
+nav a.active {
+    color: var(--primary-color);
+}
+nav a svg {
+    width: 24px;
+    height: 24px;
+    fill: currentColor;
+}
+nav a span {
+    font-size: 12px;
+}
+
+/* --- Feature List (caracteristicas.html) --- */
+.feature-list {
+    padding: 16px;
+}
+.feature-item {
+    display: flex;
+    align-items: center;
+    background: var(--surface-color);
+    border-radius: var(--border-radius);
+    padding: 16px;
+    margin-bottom: 12px;
+    text-decoration: none;
+    color: var(--text-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition:
+        transform 0.2s,
+        box-shadow 0.2s;
+}
+.feature-item:active {
+    transform: scale(0.98);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+.feature-icon {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    margin-right: 16px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(106, 17, 203, 0.1);
+}
+.feature-icon svg {
+    width: 24px;
+    height: 24px;
+    fill: var(--primary-color);
+}
+.feature-content {
+    flex-grow: 1;
+}
+.feature-content h3 {
+    margin: 0 0 4px 0;
+    font-size: 1.1rem;
+}
+.feature-content p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--light-text-color);
+}
+.feature-arrow {
+    flex-shrink: 0;
+}
+.feature-arrow svg {
+    width: 24px;
+    height: 24px;
+    fill: var(--light-text-color);
+}
+
+/* --- Back Button --- */
+.page-header.with-back-button {
+    display: flex;
+    align-items: center;
+    text-align: left;
+}
+.page-header.with-back-button h1 {
+    flex-grow: 1;
+    text-align: center;
+    padding-right: 40px; /* Offset for back button space */
+}
+.back-link {
+    display: flex;
+    align-items: center;
+    color: var(--primary-color);
+    text-decoration: none;
+    padding: 8px;
+}
+.back-link svg {
+    width: 28px;
+    height: 28px;
+    fill: currentColor;
+}
+
+/* --- Interpreter Page (interprete.html) --- */
+.scan-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px 24px;
+    min-height: 60vh;
+}
+.scan-container h2 {
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--text-color);
+}
+.scan-container p {
+    color: var(--light-text-color);
+    margin-bottom: 24px;
+    max-width: 320px;
+    line-height: 1.6;
+}
+.qr-code-placeholder {
+    width: 100%;
+    max-width: 200px;
+    height: auto;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border: 4px solid white;
+}
+.subtext-link {
+    margin-top: 24px;
+    font-size: 0.9rem;
+    color: var(--light-text-color);
+}
+.subtext-link a {
+    color: var(--primary-color);
+    text-decoration: underline;
+    font-weight: 600;
+}
+
+/* --- [NUEVO] Estilos para el Buscador y sus Resultados --- */
+.search-container {
+    position: relative;
+    margin-bottom: 24px;
+}
+
+#search-results {
+    position: absolute;
+    top: 110%; /* Justo debajo de la barra de búsqueda */
+    left: 0;
+    right: 0;
+    background: var(--surface-color);
+    border-radius: var(--border-radius);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    z-index: 100;
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid #eee;
+}
+
+#search-results.hidden {
+    display: none;
+}
+
+.search-result-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    border-bottom: 1px solid #f0f0f0;
+    text-decoration: none;
+    color: var(--text-color);
+}
+
+.search-result-item:last-child {
+    border-bottom: none;
+}
+
+.search-result-item:hover {
+    background-color: #f8f8f8;
+}
+
+.search-result-item .result-text {
+    flex-grow: 1;
+}
+
+.search-result-item strong {
+    display: block;
+    font-size: 1rem;
+}
+
+.search-result-item span {
+    font-size: 0.8rem;
+    color: var(--light-text-color);
+}
+
+.search-result-item svg {
+    width: 20px;
+    height: 20px;
+    fill: var(--light-text-color);
+}
+
+/* --- [NUEVO] Estilos para la Rejilla de Categorías Populares --- */
+.card-grid-small {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.card-grid-small .card {
+    padding: 16px;
+}
+
+.card-grid-small .card h3 {
+    font-size: 0.9rem;
+    margin-top: 8px;
+    margin-bottom: 0;
+}
+
+.card-grid-small .card-icon {
+    width: 40px;
+    height: 40px;
+}
+
+.card-grid-small .card-icon i {
+    font-size: 1.2rem;
+    color: var(--secondary-color);
+}
+
+/* --- [NUEVO] Estilo para la imagen en Palabra del Día --- */
+.word-of-the-day-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+}

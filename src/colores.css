@@ -1,0 +1,120 @@
+/* Estilos para el teclado de Colores y Quiz */
+.colors-body {
+    transition: background 0.8s ease;
+    background: var(--background-color);
+}
+
+.card-colors {
+    width: 100%;
+    max-width: 980px;
+    background: var(--surface-color);
+    border-radius: 12px;
+    padding: 18px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    margin: 20px auto;
+}
+
+.controls {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-bottom: 16px;
+}
+
+.controls .btn {
+    background: rgba(0, 0, 0, 0.05);
+    border: 1px solid transparent;
+    color: var(--text-color);
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.controls .btn.active {
+    background: var(--primary-color);
+    color: white;
+}
+
+.viewer-colors {
+    height: 320px;
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.03);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 16px 0;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    transition: background 0.8s ease;
+    color: var(--light-text-color);
+}
+
+.keyboard-colors {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    padding: 10px;
+}
+
+.key-color {
+    min-width: 60px;
+    height: 56px;
+    border-radius: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 1rem;
+    padding: 0 10px;
+}
+
+.key-color.selected {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+#quizSection.hidden {
+    display: none;
+}
+
+.quiz-options-colors {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    padding: 10px;
+}
+
+.quiz-btn-color {
+    flex: 1 1 40%;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    color: var(--text-color);
+    background: var(--surface-color);
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.quiz-btn-color.correct {
+    background: #16a34a;
+    color: white;
+}
+.quiz-btn-color.incorrect {
+    background: #dc2626;
+    color: white;
+}
+
+.meta {
+    text-align: center;
+    color: var(--light-text-color);
+    margin-top: 8px;
+}

@@ -1,0 +1,106 @@
+/* Estilos para el Teclado de Alfabeto */
+.keyboard-container.card {
+    width: 100%;
+    max-width: 980px;
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 18px;
+    box-shadow: 0 8px 30px rgba(13, 71, 161, 0.1);
+    border: 1px solid rgba(25, 118, 210, 0.2);
+    margin: 20px auto;
+}
+
+.viewer {
+    height: 320px;
+    border-radius: 10px;
+    background: linear-gradient(
+        135deg,
+        rgba(13, 71, 161, 0.08),
+        rgba(25, 118, 210, 0.05)
+    );
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 16px;
+    border: 2px solid rgba(25, 118, 210, 0.15);
+}
+
+.viewer .placeholder {
+    text-align: center;
+    color: #607d8b;
+    padding: 18px;
+}
+
+.viewer .placeholder strong {
+    display: block;
+    font-size: 20px;
+    margin-bottom: 6px;
+    color: #0d47a1;
+}
+
+.viewer img,
+.viewer svg {
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+    object-fit: contain;
+    opacity: 0;
+    animation: fadeIn 0.35s forwards;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+.keyboard {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 12px;
+}
+
+.key {
+    --size: 48px;
+    width: var(--size);
+    height: var(--size);
+    border-radius: 8px;
+    background: rgba(25, 118, 210, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #0d47a1;
+    font-weight: 700;
+    cursor: pointer;
+    user-select: none;
+    border: 1px solid rgba(25, 118, 210, 0.2);
+    box-shadow: 0 4px 12px rgba(25, 118, 210, 0.15);
+    transition: all 0.2s ease;
+    font-size: 1rem;
+}
+
+.key:hover {
+    background: rgba(25, 118, 210, 0.15);
+    box-shadow: 0 6px 16px rgba(25, 118, 210, 0.25);
+}
+
+.key.selected {
+    background: linear-gradient(135deg, #0d47a1, #1976d2);
+    color: #ffffff;
+    border-color: #0d47a1;
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(13, 71, 161, 0.35);
+}
+
+@media (max-width: 640px) {
+    .viewer {
+        height: 220px;
+    }
+    .key {
+        --size: 40px;
+    }
+}
