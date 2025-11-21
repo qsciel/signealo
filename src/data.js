@@ -13,7 +13,7 @@ const dictionary = {
       { word: "Tú", image: "assets/tu.png", sign: "assets/TUU.jpg" },
       {
         word: "Él/Ella",
-        image: "assets/Elella.webp",
+        image: "assets/elella2.jpg",
         sign: "assets/elella.jpg",
       },
       {
